@@ -8,6 +8,8 @@ public class Ball : MonoBehaviour
     public Transform MoveTo;
     public float step;
     private float progress;
+    [HideInInspector]
+    public bool AlreadyGetColor = false;
 
     private void Start()
     {
@@ -21,13 +23,14 @@ public class Ball : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(transform.position, MoveTo.position, step);
                 progress += step;
+                //Debug.Log(progress);
             }
-            if (progress >= 2.9)
+            if (progress >= 3)
             {
                 Move = false;
                 progress = 0;
-                Manager.BallSelected = false;
-                Debug.Log("End Move");
+                //Manager.BallSelected = false;
+                //Debug.Log("End Move");
             }
         }
     }

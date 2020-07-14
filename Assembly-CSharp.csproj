@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Basket.cs" />
     <Compile Include="Assets\Scripts\GeneratorNewRound.cs" />
     <Compile Include="Assets\Scripts\Manager.cs" />
+    <Compile Include="Assets\Scripts\TestRestartScene.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/project in Unity/clone Sort it/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

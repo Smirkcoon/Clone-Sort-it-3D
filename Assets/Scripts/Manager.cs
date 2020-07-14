@@ -5,6 +5,7 @@ using UnityEngine;
 public static class Manager 
 {
     public static bool BallSelected;
-
+    public static bool InMove;
+   
 
 }
