@@ -28,19 +28,22 @@ public class Basket : MonoBehaviour
     }
     private void Update()
     {
-        if (BallInBasket[0].GetComponent<Renderer>().material.color == BallInBasket[1].GetComponent<Renderer>().material.color) 
-        {
-            if(BallInBasket[1].GetComponent<Renderer>().material.color == BallInBasket[2].GetComponent<Renderer>().material.color) 
-            {
-                if (BallInBasket[2].GetComponent<Renderer>().material.color == BallInBasket[3].GetComponent<Renderer>().material.color)
-                {
-                    OneColorFilled = true;
-                }
-                else OneColorFilled = false;
-            }
-            else OneColorFilled = false;
-        }
-        else OneColorFilled = false;
+        //if (BallInBasket[0] != null && BallInBasket[1] != null && BallInBasket[2] != null && BallInBasket[3] != null)
+        //{
+        //    if (BallInBasket[0].GetComponent<Renderer>().material.color == BallInBasket[1].GetComponent<Renderer>().material.color)
+        //    {
+        //        if (BallInBasket[1].GetComponent<Renderer>().material.color == BallInBasket[2].GetComponent<Renderer>().material.color)
+        //        {
+        //            if (BallInBasket[2].GetComponent<Renderer>().material.color == BallInBasket[3].GetComponent<Renderer>().material.color)
+        //            {
+        //                OneColorFilled = true;
+        //            }
+        //            else OneColorFilled = false;
+        //        }
+        //        else OneColorFilled = false;
+        //    }
+        //    else OneColorFilled = false;
+        //}
     }
 
     private void OnMouseDown()
