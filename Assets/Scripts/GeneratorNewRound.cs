@@ -15,14 +15,17 @@ public class GeneratorNewRound : MonoBehaviour
     private GameObject[] Balls;
     private List<Color> colors = new List<Color>();
 
-    private List<bool> BasketsOneColorFilled = new List<bool>();
+    public List<GameObject> BasketsOneColorFilled = new List<GameObject>();
+
+    public GameObject YouWinT;
 
     private void Update()
     {
-        if (BasketsOneColorFilled.Count == CountOfBasket) 
-        {
-            
+        if (BasketsOneColorFilled.Count == (CountOfBasket - countEmptyBasket)) 
+        {           
+            YouWinT.SetActive(true);
         }
+        else YouWinT.SetActive(false);      
     }
     private void Awake()
     {
@@ -38,16 +41,6 @@ public class GeneratorNewRound : MonoBehaviour
         colors.Add(Color.blue);
         colors.Add(Color.gray);
         colors.Add(Color.white);
-        //colors[0] = Color.cyan;
-        //colors[1] = Color.red;
-        //colors[2] = Color.green;
-        //colors[3] = Color.yellow;
-        //colors[4] = Color.magenta;
-        //colors[5] = Color.black;
-        //colors[6] = Color.blue;
-        //colors[7] = Color.gray;
-        //colors[8] = Color.white;
-
     }
     void Start()
     {
@@ -73,8 +66,7 @@ public class GeneratorNewRound : MonoBehaviour
             case 2:
                 CountOfBasket = 8;
                 break;
-        }
-        
+        }      
         
         switch (CountOfBasket)
         {

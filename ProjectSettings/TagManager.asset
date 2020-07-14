@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Basket
   - Ball
+  - GeneratorNewRound
   layers:
   - Default
   - TransparentFX

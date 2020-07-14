@@ -11,6 +11,11 @@ public class Basket : MonoBehaviour
     public bool ItIsFilledBasketInStart;
     public GameObject PrefBall;
     private bool OneColorFilled;
+    private GameObject GeneratorNewRound;
+    private void Start()
+    {
+        GeneratorNewRound = GameObject.FindGameObjectWithTag("GeneratorNewRound");
+    }
     public void GenerateBalls()
     {
         if (ItIsFilledBasketInStart == true)
@@ -28,22 +33,25 @@ public class Basket : MonoBehaviour
     }
     private void Update()
     {
-        //if (BallInBasket[0] != null && BallInBasket[1] != null && BallInBasket[2] != null && BallInBasket[3] != null)
-        //{
-        //    if (BallInBasket[0].GetComponent<Renderer>().material.color == BallInBasket[1].GetComponent<Renderer>().material.color)
-        //    {
-        //        if (BallInBasket[1].GetComponent<Renderer>().material.color == BallInBasket[2].GetComponent<Renderer>().material.color)
-        //        {
-        //            if (BallInBasket[2].GetComponent<Renderer>().material.color == BallInBasket[3].GetComponent<Renderer>().material.color)
-        //            {
-        //                OneColorFilled = true;
-        //            }
-        //            else OneColorFilled = false;
-        //        }
-        //        else OneColorFilled = false;
-        //    }
-        //    else OneColorFilled = false;
-        //}
+        if (OneColorFilled == false && BallInBasket.Count == 4)
+        {
+            if (BallInBasket[0].GetComponent<Renderer>().material.color == BallInBasket[1].GetComponent<Renderer>().material.color)
+            {
+                if (BallInBasket[1].GetComponent<Renderer>().material.color == BallInBasket[2].GetComponent<Renderer>().material.color)
+                {
+                    if (BallInBasket[2].GetComponent<Renderer>().material.color == BallInBasket[3].GetComponent<Renderer>().material.color)
+                    {
+                        OneColorFilled = true;
+                        GeneratorNewRound.GetComponent<GeneratorNewRound>().BasketsOneColorFilled.Add(this.gameObject);
+                    }                    
+                }                
+            }
+        }
+        if (BallInBasket.Count < 4 && OneColorFilled == true)
+        {
+            OneColorFilled = false;
+            GeneratorNewRound.GetComponent<GeneratorNewRound>().BasketsOneColorFilled.Remove(this.gameObject);
+        }
     }
 
     private void OnMouseDown()
@@ -63,16 +71,17 @@ public class Basket : MonoBehaviour
         }
         else 
         {
-            AddBallInBasket();
-            
+            AddBallInBasket();            
         }       
     }
     private void AddBallInBasket() 
     {
         if (BallInBasket.Count < 4)
-        {          
-            SelectedBall.GetComponent<Ball>().Move = true;
-            SelectedBall.GetComponent<Ball>().MoveTo = PlaceForBall[4];
+        {
+            SelectedBall.GetComponent<Ball>().progressup = 0;
+            SelectedBall.GetComponent<Ball>().Move = true;           
+            SelectedBall.GetComponent<Ball>().MoveUp = true;
+            SelectedBall.GetComponent<Ball>().MoveToUp = PlaceForBall[4];
             FindBallPlace();
             BallInBasket.Add(SelectedBall);
             Manager.BallSelected = false;
@@ -80,8 +89,8 @@ public class Basket : MonoBehaviour
     }
     public void MinusBallInBasket(GameObject ball) 
     {
-        ball.GetComponent<Ball>().Move = true;
-        ball.GetComponent<Ball>().MoveTo = PlaceForBall[4];
+        ball.GetComponent<Ball>().MoveUp = true;
+        ball.GetComponent<Ball>().MoveToUp = PlaceForBall[4];
         BallInBasket.Remove(ball);
     }
     private void FindBallPlace()
