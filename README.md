@@ -1,2 +1,3 @@
 # clone-Sort-it-3D
-Делаю копию игры на андроид Soit it 3D, еще не готова
+I make a copy of the game on android Sort it 3D, not ready yet
+
