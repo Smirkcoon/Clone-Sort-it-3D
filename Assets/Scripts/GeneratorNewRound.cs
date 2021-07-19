@@ -15,21 +15,13 @@ public class GeneratorNewRound : MonoBehaviour
     private GameObject[] Balls;
     private List<Color> colors = new List<Color>();
 
-    public List<GameObject> BasketsOneColorFilled = new List<GameObject>();
-
     public GameObject YouWinT;
 
-    private void Update()
-    {
-        if (BasketsOneColorFilled.Count == (CountOfBasket - countEmptyBasket)) 
-        {           
-            YouWinT.SetActive(true);
-        }
-        else YouWinT.SetActive(false);      
-    }
+    public static GeneratorNewRound GetInstance;
+
     private void Awake()
     {
-        Camera mainCam = Camera.main;
+        GetInstance = this;
         SettingsMap();
 
         colors.Add(Color.cyan);
@@ -44,7 +36,8 @@ public class GeneratorNewRound : MonoBehaviour
     }
     void Start()
     {
-        FilledBasket();
+        //FilledBasket();
+        FilledBowl();
         Manager.BallSelected = false;
         Balls = GameObject.FindGameObjectsWithTag("Ball");
         SetBallsColor();
@@ -52,7 +45,6 @@ public class GeneratorNewRound : MonoBehaviour
     public GameObject prefabBasket;
     public void SettingsMap()
     {
-        Camera mainCam = Camera.main;
         IndexSettingsMap = Random.Range(0, 3);
         
         switch (IndexSettingsMap)
@@ -73,54 +65,54 @@ public class GeneratorNewRound : MonoBehaviour
             case 6:
                 for (int i = 0; i < CountOfBasket; i++)
                 {
-                    GameObject Basket = Instantiate(prefabBasket, PositionFor6Basket[i].position, transform.rotation);
+                    GameObject Basket = Instantiate(prefabBasket, PositionFor6Basket[i].position, Quaternion.identity);
                     GenerateBasket.Add(Basket);
                 }
                 countEmptyBasket = 1;
                 break;
 
             case 7:
-                mainCam.transform.position = new Vector3(0, 0, -2);
+                //mainCam.transform.position = new Vector3(0, 0, -2);
                 for (int i = 0; i < CountOfBasket; i++)
                 {
 
-                    GameObject Basket = Instantiate(prefabBasket, PositionFor7Basket[i].position, transform.rotation);
+                    GameObject Basket = Instantiate(prefabBasket, PositionFor7Basket[i].position, Quaternion.identity);
                     GenerateBasket.Add(Basket);                 
                 }
                 countEmptyBasket = 2;
                 break;
 
             case 8:
-                mainCam.transform.position = new Vector3(0, 0, -2);
+                //mainCam.transform.position = new Vector3(0, 0, -2);
                 for (int i = 0; i < CountOfBasket; i++)
                 {
-                    GameObject Basket = Instantiate(prefabBasket, PositionFor8Basket[i].position, transform.rotation);
+                    GameObject Basket = Instantiate(prefabBasket, PositionFor8Basket[i].position, Quaternion.identity);
                     GenerateBasket.Add(Basket);
                 }    
                 countEmptyBasket = 2;
                 break;
         }     
     }
-    private void FilledBasket()
-    {
-        for (int i = 0; i < countEmptyBasket; i++)
-        {
-            x = Random.Range(0, CountOfBasket);
-            if (GenerateBasket[x].transform.GetChild(0).GetComponent<Basket>().ItIsFilledBasketInStart == true)
-            {
-                GenerateBasket[x].transform.GetChild(0).GetComponent<Basket>().ItIsFilledBasketInStart = false;
-            }
-            else
-            {
-                Debug.Log("FilledBasket");
-                i -= 1;               
-            }
-        }
-        foreach (GameObject basket in GenerateBasket)
-        {
-            basket.transform.GetChild(0).GetComponent<Basket>().GenerateBalls();
-        }
-    }   
+    //private void FilledBasket()
+    //{
+    //    for (int i = 0; i < countEmptyBasket; i++)
+    //    {
+    //        x = Random.Range(0, CountOfBasket);
+    //        if (GenerateBasket[x].transform.GetChild(0).GetComponent<Basket>().ItIsFilledBasketInStart == true)
+    //        {
+    //            GenerateBasket[x].transform.GetChild(0).GetComponent<Basket>().ItIsFilledBasketInStart = false;
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("FilledBasket");
+    //            i -= 1;               
+    //        }
+    //    }
+    //    foreach (GameObject basket in GenerateBasket)
+    //    {
+    //        basket.transform.GetChild(0).GetComponent<Basket>().GenerateBalls();
+    //    }
+    //}   
     private void SetBallsColor() 
     {
         for (int r = 0; r < (CountOfBasket - countEmptyBasket); r++)
@@ -138,5 +130,33 @@ public class GeneratorNewRound : MonoBehaviour
                 else i -= 1;
             }
         }
+    }
+    private void FilledBowl()
+    {
+        for (int i = 0; i < countEmptyBasket; i++)
+        {
+            x = Random.Range(0, CountOfBasket);
+            if (GenerateBasket[x].transform.GetChild(0).GetComponent<Basket>().ItIsFilledBasketInStart == true)
+            {
+                GenerateBasket[x].transform.GetChild(0).GetComponent<Basket>().ItIsFilledBasketInStart = false;
+            }
+            else
+            {
+                Debug.Log("FilledBasket");
+                i -= 1;
+            }
+        }
+        foreach (GameObject basket in GenerateBasket)
+        {
+            basket.transform.GetChild(0).GetComponent<Basket>().GenerateBalls();
+        }
+    }
+    public void CheckIfWin()
+    {
+        if (Manager.BasketsOneColorFilled.Count == (CountOfBasket - countEmptyBasket))
+        {
+            YouWinT.SetActive(true);
+        }
+        else YouWinT.SetActive(false);
     }
 }

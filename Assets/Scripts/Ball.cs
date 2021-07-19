@@ -35,6 +35,7 @@ public class Ball : MonoBehaviour
             }
             if (progress >= 3)
             {
+                GeneratorNewRound.GetInstance.CheckIfWin();
                 Move = false;
                 progress = 0;
                 progressup = 0;

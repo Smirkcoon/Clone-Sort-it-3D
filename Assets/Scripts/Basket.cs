@@ -11,11 +11,7 @@ public class Basket : MonoBehaviour
     public bool ItIsFilledBasketInStart;
     public GameObject PrefBall;
     private bool OneColorFilled;
-    private GameObject GeneratorNewRound;
-    private void Start()
-    {
-        GeneratorNewRound = GameObject.FindGameObjectWithTag("GeneratorNewRound");
-    }
+
     public void GenerateBalls()
     {
         if (ItIsFilledBasketInStart == true)
@@ -42,7 +38,7 @@ public class Basket : MonoBehaviour
                     if (BallInBasket[2].GetComponent<Renderer>().material.color == BallInBasket[3].GetComponent<Renderer>().material.color)
                     {
                         OneColorFilled = true;
-                        GeneratorNewRound.GetComponent<GeneratorNewRound>().BasketsOneColorFilled.Add(this.gameObject);
+                        Manager.BasketsOneColorFilled.Add(this.gameObject);
                     }                    
                 }                
             }
@@ -50,7 +46,7 @@ public class Basket : MonoBehaviour
         if (BallInBasket.Count < 4 && OneColorFilled == true)
         {
             OneColorFilled = false;
-            GeneratorNewRound.GetComponent<GeneratorNewRound>().BasketsOneColorFilled.Remove(this.gameObject);
+            Manager.BasketsOneColorFilled.Remove(this.gameObject);
         }
     }
 
